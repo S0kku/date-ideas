@@ -1,0 +1,22 @@
+body {
+  margin: auto;
+  max-width: 50em;
+  font-family: serif;
+  background-color: #A865C9;
+  color: white;
+}
+
+.item {
+  border: 2px solid white;
+  margin: 1em;
+  padding: 0.2em 0.5em;
+}
+
+
+a:link {
+  color: #3C0561;
+}
+
+a:visited {
+  color: #220D8C;
+}
