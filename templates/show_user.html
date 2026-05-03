@@ -7,7 +7,6 @@
 <p>
   Number of dates planned by {{ user.username }}: {{ items | count }}
 </p>
-<h2>Browse ideas</h2>
 <ul>
   {% for item in items %}
   <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>

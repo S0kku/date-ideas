@@ -9,9 +9,9 @@
 <body>
   <h1>Date ideas</h1>
 
-  {% if session.username %}
+  {% if session.user_id %}
   <p>
-    Logged in as {{ session.username }}
+    Logged in as <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
   </p>
   {% endif %}
 
