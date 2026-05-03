@@ -200,6 +200,8 @@ def create():
 
     try:
         users.create_user(username, password1)
+        flash("Account created! You can now log in.")
+        return redirect("/")
     except sqlite3.IntegrityError:
         flash("ERROR: this username is taken")
         return redirect("/register")
