@@ -23,6 +23,8 @@ def add_item(title, description, user_id, classes):
     for title, value in classes:
         db.execute(sql, [item_id, title, value])
 
+    return item_id
+
 def add_comment(item_id, user_id, comment):
     sql = """INSERT INTO comments (item_id, user_id, comment)
              VALUES (?, ?, ?)"""
