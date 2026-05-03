@@ -1,3 +1,4 @@
+import secrets
 import sqlite3
 from flask import Flask
 from flask import abort, redirect, render_template, request, session
@@ -13,6 +14,11 @@ def require_login():
     if "user_id" not in session:
         abort(403)
 
+def check_csrf():
+    if "csrf_token" not in request.form:
+        abort(403)
+    if request.form["csrf_token"] != session["csrf_token"]:
+        abort(403)
 
 @app.route("/")
 def index():
@@ -55,6 +61,8 @@ def new_item():
 @app.route("/create_item", methods=["POST"])
 def create_item():
     require_login()
+    check_csrf()
+
     title = request.form["title"]
     if not title or len(title) > 50:
         abort(403)
@@ -83,6 +91,7 @@ def create_item():
 @app.route("/create_comment", methods=["POST"])
 def create_comment():
     require_login()
+    check_csrf()
 
     comment = request.form["comment"]
     if not comment or len(comment) > 250:
@@ -118,6 +127,8 @@ def edit_item(item_id):
 @app.route("/update_item", methods=["POST"])
 def update_item():
     require_login()
+    check_csrf()
+
     item_id = request.form["item_id"]
     item = items.get_item(item_id)
     if not item:
@@ -150,6 +161,7 @@ def update_item():
 @app.route("/remove_item/<int:item_id>", methods=["GET", "POST"])
 def remove_item(item_id):
     require_login()
+
     item = items.get_item(item_id)
     if not item:
         abort(404)
@@ -160,6 +172,7 @@ def remove_item(item_id):
         return render_template("remove_item.html", item=item)
 
     if request.method == "POST":
+        check_csrf()
         if "remove" in request.form:
             items.remove_item(item_id)
             return redirect("/")
@@ -198,6 +211,7 @@ def login():
         if user_id:
             session["user_id"] = user_id
             session["username"] = username
+            session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
         else:
             return "ERROR: wrong username or password"

@@ -39,6 +39,7 @@
   Want to improve this date? Make a suggestion: <br />
   <textarea name="comment" rows="4" cols="40" maxlength="250" required></textarea> <br />
   <input type="hidden" name="item_id" value="{{ item.id }}">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" value="Add comment" />
 </form>
 {% endblock %}
