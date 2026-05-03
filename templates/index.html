@@ -10,25 +10,19 @@
 
   {% if session.username %}
   <p>
-    Logged in as {{ session.username }}, your id number is {{ session.user_id }}
-  </p>
-  <p>
-    <a href="/new_item">Plan a date</a>
-  </p>
-  <p>
-    <a href="/logout">Log out</a>
-  </p>
-  {% else %}
-  <p>
-    <a href="/login">Log in</a>
-  </p>
-  <p>
-    <a href="/register">Create an account</a>
+    Logged in as {{ session.username }}
   </p>
   {% endif %}
 
   <p>
-    <a href="/find_item">Search for ideas</a>
+    <a href="/find_item">Search</a> |
+  {% if session.user_id %}
+    <a href="/new_item">Plan a date</a> |
+    <a href="/logout">Log out</a>
+  {% else %}
+    <a href="/register">Register</a> |
+    <a href="/login">Log in</a>
+  {% endif %}
   </p>
 
     <h2>All ideas</h2>
