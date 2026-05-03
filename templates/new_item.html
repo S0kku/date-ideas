@@ -16,27 +16,17 @@
       Describe your date: <br />
       <textarea name="description" rows="10" cols="60" maxlength="1000" required></textarea>
     </p>
+    {% for class in classes %}
     <p>
-      Main activity: <br />
-      <select name="section">
+      {{ class }}: <br />
+      <select name="classes">
         <option value="">( choose )</option>
-        <option value="Active / Outdoors">Active / Outdoors</option>
-        <option value="Arts / Crafts">Arts / Crafts</option>
-        <option value="Food / Restaurants">Food / Restaurants</option>
-        <option value="Games / Series">Games / Series</option>
-        <option value="Museum / Sightseeing">Museum / Sightseeing</option>
+      {% for option in classes[class] %}
+        <option value="{{ class }}:{{ option }}">{{ option }}</option>
+      {% endfor %}
       </select>
     </p>
-    <p>
-      Price range: <br />
-      <select name="cost">
-        <option value="">( choose )</option>
-        <option value="High">High cost</option>
-        <option value="Medium">Medium cost</option>
-        <option value="Low">Low cost</option>
-        <option value="Free">Free of charge</option>
-      </select>
-    </p>
+    {% endfor %}
     <input type="submit" value="Post idea" />
   </form>
 </body>
