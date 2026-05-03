@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Dates by {{ user.username }}'</title>
-</head>
+{% block title %}{{ user.username }}{% endblock %}
 
-<body>
-  <h1>Dates by {{ user.username }}</h1>
-  <p>
-    Number of dates planned by {{ user.username }}: {{ items | count }}
-  </p>
-  <h2>Browse ideas</h2>
-  <ul>
-    {% for item in items %}
-    <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
-    {% endfor %}
-  </ul>
-  <p>
-    <a href="/">Back to front page</a>
-  </p>
-</body>
-
-</html>
+{% block content %}
+<h2>Dates by {{ user.username }}</h2>
+<p>
+  Number of dates planned by {{ user.username }}: {{ items | count }}
+</p>
+<h2>Browse ideas</h2>
+<ul>
+  {% for item in items %}
+  <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

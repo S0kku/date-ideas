@@ -1,34 +1,29 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Plan a date</title>
-</head>
+{% block title %}Plan a date{% endblock %}
 
-<body>
-  <h1>New date idea</h1>
-  <form action="/create_item" method="post">
-    <p>
-      Title: <br />
-      <input type="text" name="title" maxlength="50" required />
-    </p>
-    <p>
-      Describe your date: <br />
-      <textarea name="description" rows="10" cols="60" maxlength="1000" required></textarea>
-    </p>
-    {% for class in classes %}
-    <p>
-      {{ class }}: <br />
-      <select name="classes">
-        <option value="">( choose )</option>
-      {% for option in classes[class] %}
-        <option value="{{ class }}:{{ option }}">{{ option }}</option>
-      {% endfor %}
-      </select>
-    </p>
+{% block content %}
+<h2>Plan a date</h2>
+<form action="/create_item" method="post">
+  <p>
+    Title: <br />
+    <input type="text" name="title" maxlength="50" required />
+  </p>
+  <p>
+    Describe your date: <br />
+    <textarea name="description" rows="10" cols="60" maxlength="1000" required></textarea>
+  </p>
+  {% for class in classes %}
+  <p>
+    {{ class }}: <br />
+    <select name="classes">
+      <option value="">( choose )</option>
+    {% for option in classes[class] %}
+      <option value="{{ class }}:{{ option }}">{{ option }}</option>
     {% endfor %}
-    <input type="submit" value="Post idea" />
-  </form>
-</body>
-
-</html>
+    </select>
+  </p>
+  {% endfor %}
+  <input type="submit" value="Post idea" />
+</form>
+{% endblock %}

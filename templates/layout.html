@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+  <h1>Date ideas</h1>
+
+  {% if session.username %}
+  <p>
+    Logged in as {{ session.username }}
+  </p>
+  {% endif %}
+
+  <p>
+    <a href="/">Front page</a> |
+    <a href="/find_item">Search</a> |
+  {% if session.user_id %}
+    <a href="/new_item">Plan a date</a> |
+    <a href="/logout">Log out</a>
+  {% else %}
+    <a href="/register">Register</a> |
+    <a href="/login">Log in</a>
+  {% endif %}
+  </p>
+
+  {% block content %}{% endblock %}
+</body>
+
+</html>
