@@ -1,7 +1,7 @@
 import secrets
 import sqlite3
 from flask import Flask
-from flask import abort, redirect, render_template, request, session
+from flask import abort, flash, redirect, render_template, request, session
 import markupsafe
 import config
 import db
@@ -195,14 +195,16 @@ def create():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return "ERROR: the passwords do not match"
+        flash("ERROR: the passwords do not match")
+        return redirect("/register")
 
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
-        return "ERROR: this username is taken"
+        flash("ERROR: this username is taken")
+        return redirect("/register")
 
-    return "Account created successfully"
+    return redirect("/")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -220,7 +222,8 @@ def login():
             session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
         else:
-            return "ERROR: wrong username or password"
+            flash("ERROR: wrong username or password")
+            return redirect("/login")
 
 @app.route("/logout")
 def logout():
